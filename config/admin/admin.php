@@ -10,11 +10,11 @@ return [
     //基本设置:后台的基本信息设置
     'base'=>[
         //后台名称
-        'name'=>'laravel通用后台系统',
+        'name'=>'投票管理系统',
         //后台简称
-        'short_name'=>'laravel通用后台系统',
+        'short_name'=>'投票管理',
         //后台作者
-        'author'=>'虞行飞',
+        'author'=>'lpy',
         //后台版本
         'version'=>'2.0',
     ],
