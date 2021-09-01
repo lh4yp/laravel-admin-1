@@ -70,22 +70,11 @@ class VoteRepository implements VoteInterface
     public function update($param)
     {
         $data = $this->findById($param['id']);
-
-        //处理头像上传
-        if (!empty(request()->file('avatar'))) {
-            $attachment_avatar = new Attachment();
-            $file_avatar       = $attachment_avatar->upload('avatar');
-            if ($file_avatar) {
-                $data->avatar = $file_avatar->url;
-            }
-        }
-        $data->user_level_id = $param['user_level_id'];
-        $data->username      = $param['username'];
-        $data->mobile        = $param['mobile'];
-        $data->nickname      = $param['nickname'];
-        $data->password      = $param['password'];
-        $data->status        = $param['status'];
-        $data->description   = isset($param['description']) ? $param['description'] : '';
+        $data->title = $param['title'];
+        $data->content      = $param['content'];
+        $data->rule_id      = $param['rule_id'];
+        $data->start_time      = $param['start_time'];
+        $data->end_time        = $param['end_time'];
 
         return $data->save();
     }
@@ -114,35 +103,6 @@ class VoteRepository implements VoteInterface
     public function disable($id)
     {
         return VoteInfo::whereIn('id', $id)->update(['status' => 0]);
-    }
-
-    /**
-     * 删除用户
-     *
-     * @param $id
-     * @return int|mixed|void
-     * Author: Stephen
-     * Date: 2020/7/27 16:42:15
-     */
-    public function destroy($id)
-    {
-        is_string($id) && $id = [$id];
-
-        $noDeletionId = (new User())->getNoDeletionId();
-
-        if (count($noDeletionId) > 0) {
-            if (is_array($id)) {
-                if (array_intersect($noDeletionId, $id)) {
-                    return error('ID为' . implode(',', $noDeletionId) . '的数据无法删除');
-                }
-            } else if (in_array($id, $noDeletionId)) {
-                return error('ID为' . $id . '的数据无法删除');
-            }
-        }
-
-        $count = User::destroy($id);
-
-        return $count;
     }
 
 }

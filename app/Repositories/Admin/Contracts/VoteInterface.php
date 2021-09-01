@@ -65,12 +65,4 @@ interface VoteInterface
      */
     public function disable($id);
 
-    /**
-     * 删除
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function destroy($id);
-
 }

@@ -5,38 +5,37 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\UserService;
+use App\Services\VoteService;
 
 class VoteController extends BaseController
 {
     /**
-     * @var UserService 用户管理服务
+     * @var VoteService 投票管理服务
      */
-    protected $userService;
+    protected $VoteService;
 
     /**
      * UserController 构造函数.
      *
-     * @param UserService $userService
+     * @param VoteService $VoteService
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(UserService $userService)
+    public function __construct(VoteService $VoteService)
     {
         parent::__construct();
 
-        $this->userService = $userService;
+        $this->VoteService = $VoteService;
     }
 
     /**
-     * 用户管理列表页
+     * 投票管理列表页
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Author: Stephen
-     * Date: 2020/7/24 16:19:56
+
      */
     public function index()
     {
-        $data = $this->userService->getPageData();
+        $data = $this->VoteService->getPageData();
 
         return view('admin.user.index',$data);
     }
@@ -45,41 +44,37 @@ class VoteController extends BaseController
      * 导出
      *
      * @return string|void
-     * Author: Stephen
-     * Date: 2020/7/24 16:20:11
      */
     public function export()
     {
-        return $this->userService->export();
+        return $this->VoteService->export();
     }
 
     /**
-     * 添加用户界面
+     * 添加投票界面
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Author: Stephen
-     * Date: 2020/7/24 16:20:24
      */
     public function add()
     {
-        $userLevelList = $this->userService->getUserLevel();
+        $userLevelList = $this->VoteService->getUserLevel();
 
         return view('admin.user.add',['user_level_list' => $userLevelList]);
     }
 
     /**
-     * 创建用户
+     * 创建投票
      *
      * Author: Stephen
      * Date: 2020/7/24 16:20:39
      */
     public function create()
     {
-        return $this->userService->create();
+        return $this->VoteService->create();
     }
 
     /**
-     * 编辑用户
+     * 编辑投票
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -88,22 +83,20 @@ class VoteController extends BaseController
      */
     public function edit($id)
     {
-        $data          = $this->userService->edit($id);
+        $data  = $this->VoteService->edit($id);
 
-        $userLevelList = $this->userService->getUserLevel();
-
-        return view('admin.user.edit',['data' => $data,'user_level_list' => $userLevelList]);
+        return view('admin.user.edit',['data' => $data]);
     }
 
     /**
-     * 更新用户
+     * 更新投票
      *
      * Author: Stephen
      * Date: 2020/7/24 16:21:15
      */
     public function update()
     {
-        return $this->userService->update();
+        return $this->VoteService->update();
     }
 
     /**
@@ -114,18 +107,7 @@ class VoteController extends BaseController
      */
     public function enable()
     {
-        return $this->userService->enable();
-    }
-
-    /**
-     * 删除
-     *
-     * Author: Stephen
-     * Date: 2020/7/24 16:21:36
-     */
-    public function del()
-    {
-        return $this->userService->del();
+        return $this->VoteService->enable();
     }
 
     /**
@@ -136,7 +118,7 @@ class VoteController extends BaseController
      */
     public function disable()
     {
-        return $this->userService->disable();
+        return $this->VoteService->disable();
     }
 
 }

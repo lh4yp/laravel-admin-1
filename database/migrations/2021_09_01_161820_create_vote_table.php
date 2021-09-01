@@ -22,7 +22,7 @@ class CreateVoteTable extends Migration
             $table->unsignedInteger('id')->autoIncrement();
             $table->string('title', 30)->collation('utf8mb4_unicode_ci')->default('')->comment('投票标题');
             $table->string('content', 500)->collation('utf8mb4_unicode_ci')->default('')->comment('投票说明');
-            $table->string('rule', 500)->collation('utf8mb4_unicode_ci')->default('')->comment('投票说明');
+            $table->tinyInteger('rule_id')->default(1)->comment('投票规则');
             $table->string('banner', 255)->collation('utf8mb4_unicode_ci')->default('')->comment('banner图片');
             $table->string('start_time',50)->default('0000-00-00 00:00:00')->comment('开始时间');
             $table->string('end_time',50)->default('0000-00-00 00:00:00')->comment('结束时间');
